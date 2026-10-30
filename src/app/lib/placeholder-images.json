@@ -1,0 +1,34 @@
+{
+  "placeholderImages": [
+    {
+      "id": "logo-main",
+      "description": "Rojgar Matrix Official Logo Wide",
+      "imageUrl": "https://storage.googleapis.com/fullstack-app-hosting-studio-public-bucket/studio-2605368174-fd549/image-1740581691158.png",
+      "imageHint": "company logo"
+    },
+    {
+      "id": "hero-bg",
+      "description": "Professional modern office space with clean lines",
+      "imageUrl": "https://picsum.photos/seed/rojgar1/1200/600",
+      "imageHint": "modern office"
+    },
+    {
+      "id": "company-logo-1",
+      "description": "Tech company logo placeholder",
+      "imageUrl": "https://picsum.photos/seed/comp1/100/100",
+      "imageHint": "tech logo"
+    },
+    {
+      "id": "company-logo-2",
+      "description": "Creative agency logo placeholder",
+      "imageUrl": "https://picsum.photos/seed/comp2/100/100",
+      "imageHint": "creative logo"
+    },
+    {
+      "id": "user-avatar",
+      "description": "Professional user profile picture",
+      "imageUrl": "https://picsum.photos/seed/user1/200/200",
+      "imageHint": "professional portrait"
+    }
+  ]
+}

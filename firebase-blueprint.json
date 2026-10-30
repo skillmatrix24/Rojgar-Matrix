@@ -1,0 +1,118 @@
+{
+  "entities": {
+    "UserProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Represents a generic user account on the Rojgar Matrix platform.",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "registrationDate": { "type": "string", "format": "date-time" },
+        "isEmployer": { "type": "boolean" },
+        "role": { "type": "string", "enum": ["jobSeeker", "employer", "admin"] },
+        "credits": { "type": "number" },
+        "phoneNumber": { "type": "string" },
+        "city": { "type": "string" }
+      },
+      "required": ["id", "firstName", "isEmployer"]
+    },
+    "JobPosting": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "JobPosting",
+      "type": "object",
+      "description": "Represents a job listing posted by an employer.",
+      "properties": {
+        "id": { "type": "string" },
+        "employerUserProfileId": { "type": "string" },
+        "title": { "type": "string" },
+        "companyName": { "type": "string" },
+        "description": { "type": "string" },
+        "location": { "type": "string" },
+        "salaryRangeMin": { "type": "number" },
+        "salaryType": { "type": "string", "enum": ["lpa", "monthly"] },
+        "isActive": { "type": "boolean" },
+        "postedDate": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "companyName", "isActive"]
+    },
+    "BotFlow": {
+      "title": "BotFlow",
+      "type": "object",
+      "description": "Defines a trigger-based interactive sequence for the WhatsApp bot.",
+      "properties": {
+        "name": { "type": "string" },
+        "triggerKeywords": { "type": "string" },
+        "responseText": { "type": "string" },
+        "buttons": { "type": "array" }
+      }
+    },
+    "MarketingContact": {
+      "title": "MarketingContact",
+      "type": "object",
+      "description": "Persistent lead data for marketing campaigns.",
+      "properties": {
+        "name": { "type": "string" },
+        "number": { "type": "string" },
+        "role": { "type": "string" },
+        "city": { "type": "string" },
+        "group": { "type": "string" },
+        "source": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "type": "object",
+      "description": "User reviews and ratings for the platform.",
+      "properties": {
+        "id": { "type": "string" },
+        "userName": { "type": "string" },
+        "userRole": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "content": { "type": "string" },
+        "rating": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "isFeatured": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userName", "content", "rating"]
+    }
+  },
+  "auth": {
+    "providers": ["password", "anonymous", "google.com", "phone"]
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/backend/entities/UserProfile" },
+      "description": "Stores core user profile data."
+    },
+    "/jobs/{jobId}": {
+      "schema": { "$ref": "#/backend/entities/JobPosting" },
+      "description": "Stores job listings."
+    },
+    "/wa_templates/{templateId}": {
+      "description": "Stores Meta Cloud API message templates."
+    },
+    "/wa_flows/{flowId}": {
+      "schema": { "$ref": "#/backend/entities/BotFlow" },
+      "description": "Stores interactive bot flow sequences."
+    },
+    "/marketing_contacts/{contactId}": {
+      "schema": { "$ref": "#/backend/entities/MarketingContact" },
+      "description": "Persistent lead data for marketing campaigns."
+    },
+    "/offers/{offerId}": {
+      "description": "Stores marketing banners."
+    },
+    "/coupons/{couponId}": {
+      "description": "Discount coupons for recharges."
+    },
+    "/testimonials/{testimonialId}": {
+      "schema": { "$ref": "#/backend/entities/Testimonial" },
+      "description": "Public user reviews and ratings."
+    }
+  }
+}

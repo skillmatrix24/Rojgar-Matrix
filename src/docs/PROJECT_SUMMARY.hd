@@ -1,0 +1,68 @@
+
+# ROZGARMATRIX: PROJECT EVOLUTION & TECHNICAL LOG
+**Status**: ACTIVE PRODUCTION
+**Last Updated**: FEB 2026
+
+---
+
+## 1. FULL CONVERSION HISTORY (STEP-BY-STEP)
+
+### PHASE 1: CORE ARCHITECTURE & AUTHENTICATION
+- **Milestone 1**: Initial project scaffold with Next.js 15, ShadCN, and Tailwind.
+- **Milestone 2**: Firebase Integration using Client-Side SDKs. 
+- **Milestone 3**: Dual-Path Authentication. Implemented Phone/OTP (Primary) and Google Login (Secondary).
+- **Milestone 4**: Role-Based Access Control (RBAC). Established the "jobSeeker", "employer", and "admin" triad.
+
+### PHASE 2: AI RECRUITMENT SUITE (GENKIT INTEGRATION)
+- **AI Matchmaker**: Developed a semantic search flow to match seeker skills with active job descriptions (Gemini 2.5 Flash).
+- **Interview Coach**: Built an interactive HR simulator supporting Hinglish dialogue for practice sessions.
+- **Job Advisor**: Created a career analysis engine that provides "Probability of Selection" scores and gap analysis.
+- **Resume Refiner**: Automated the generation of ATS-friendly professional summaries.
+
+### PHASE 3: WHATSAPP CONNECT & AUTOMATION
+- **Meta Cloud API Handshake**: Developed the backend logic for initiating WhatsApp chats directly from the browser.
+- **Bot Flow Engine**: Built a trigger-based NLU parser to extract City and Category from natural WhatsApp messages.
+- **Instant Seeker Alerts**: Implemented a notification system where Employers receive WhatsApp leads as soon as a seeker clicks "Apply".
+- **Human Handover System**: Developed a state-tracking mechanism for the bot to pause AI logic and request human intervention.
+
+### PHASE 4: MARKETING & TEMPLATE MANAGEMENT
+- **Smart Campaigns**: Created a targeting engine to broadcast job listings to specific user segments (City/Category).
+- **Bulk Sender**: Implemented CSV import/export for high-volume outreach with Meta-compliant quality pacing.
+- **Template Designer**: Built a full design workspace to create Meta-approved message templates with rich media (Image/Video) and interactive buttons.
+- **Conditional Bot Flows**: Enhanced the Bot Designer to support `SEND_TEMPLATE` actions, allowing automated complex messaging.
+
+---
+
+## 2. ARCHITECTURAL BLUEPRINT
+
+### DATA ENTITIES
+- **UserProfile**: Core identity (Name, Phone, Role, Credits).
+- **JobPosting**: Marketplace listings with AI Quality Scores.
+- **Interactions**: Real-time WhatsApp session state and history logs.
+- **Transactions**: Financial ledger for credit purchases and AI tool usage.
+- **Marketing**: `wa_templates` (Meta blueprints) and `wa_flows` (Trigger logic).
+
+### CLOUD SECURITY (FIRESTORE RULES)
+- **Hardened Admin Checks**: Strict email validation (`skillmatrix24@gmail.com`) + Profile role checks.
+- **Ownership Lockdown**: Users can only update their own profiles.
+- **Public Read Access**: Jobs and Categories are open for discovery to maximize SEO and user reach.
+
+---
+
+## 3. CRITICAL FIX LOG (SYSTEM STABILITY)
+
+| ISSUE | CAUSE | RESOLUTION |
+| :--- | :--- | :--- |
+| **Permission Denied: Users** | Missing Rule | Added `allow list: if true` to allow Meta API registration checks. |
+| **ReferenceError: Label** | Missing Import | Globally audited and restored `Label` component imports. |
+| **Bot Handshake Error** | State Sync | Fixed simulator logic to handle non-existent interaction documents gracefully. |
+| **JobDetail Crash** | Syntax Error | Fixed unclosed tag in `JobDetailView.tsx` preventing production builds. |
+| **Marketing Crash** | Missing Icons | Restored `Info`, `Sparkles`, and `Link` imports in Campaign Designer. |
+| **Flow Listing Failure** | RBAC Error | Updated Firestore Rules to explicitly permit `wa_flows` and `wa_templates` listing for admins. |
+
+---
+
+## 4. UPCOMING ROADMAP
+- **Razorpay Webhook Integration**: To automate credit refill verification.
+- **Multi-Speaker TTS**: For AI Voice Interviews.
+- **Advanced Analytics**: Visualizing ROI for Employer Campaigns.

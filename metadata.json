@@ -1,0 +1,8 @@
+{
+  "name": "Rojgar Matrix",
+  "description": "India's Modern AI Job Marketplace with WhatsApp-first communication, resume builder, and AI job matching",
+  "prompt": "Rojgar Matrix | India's Modern AI Job Marketplace",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

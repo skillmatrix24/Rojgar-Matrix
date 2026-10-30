@@ -1,0 +1,113 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * ROJGAR MATRIX PRODUCTION SECURITY RULES - V42
+     * Forced redeploy to ensure testimonial public list access is active.
+     */
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        (request.auth.token.email != null && request.auth.token.email == 'skillmatrix24@gmail.com') || 
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')
+      );
+    }
+
+    // --- COLLECTION RULES ---
+
+    // Publicly accessible reviews - Explicitly allowed for unauthenticated users
+    match /testimonials/{testimonialId} {
+      allow read, get, list: if true;
+      allow create: if isSignedIn();
+      allow update, delete: if isAdmin();
+    }
+
+    match /marketing_contacts/{contactId} {
+      allow read, write: if isAdmin();
+    }
+
+    match /offers/{offerId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /coupons/{couponId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /wa_templates/{templateId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /promotions/{promoId} {
+      allow read: if true;
+      allow create: if isSignedIn();
+      allow update, delete: if isAdmin() || (isSignedIn() && resource.data.employerId == request.auth.uid);
+    }
+
+    match /categories/{catId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /inquiries/{inquiryId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /users/{userId} {
+      allow get: if true; 
+      // CRITICAL: Prevent listing all users. Only Admins can see the directory.
+      allow list: if isAdmin(); 
+      allow create: if isSignedIn(); 
+      allow update: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    match /jobs/{jobId} {
+      allow read, get, list: if true;
+      allow create: if isSignedIn();
+      allow update, delete: if isAdmin() || (isSignedIn() && resource.data.employerUserProfileId == request.auth.uid);
+    }
+
+    match /applications/{appId} {
+      allow read, list: if isAdmin() || (isSignedIn() && (request.auth.uid == resource.data.seekerId || request.auth.uid == resource.data.employerId));
+      allow create: if isSignedIn();
+      allow update, delete: if isAdmin() || (isSignedIn() && (request.auth.uid == resource.data.seekerId || request.auth.uid == resource.data.employerId));
+    }
+
+    match /transactions/{txId} {
+      allow read, list: if isAdmin() || (isSignedIn() && (resource == null || resource.data.userId == request.auth.uid));
+      allow create: if isSignedIn();
+      allow update, delete: if isAdmin();
+    }
+
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /interactions/{phone} {
+      allow read: if isAdmin();
+      allow list: if isAdmin();
+      allow write: if true; 
+    }
+    
+    // Fallback
+    match /{path=**} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

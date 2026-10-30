@@ -1,0 +1,47 @@
+# RozgarMatrix - Comprehensive Technical Evolution & Conversion History
+
+## 1. Core Architecture
+RozgarMatrix is a next-generation recruitment ecosystem built with **Next.js 15**, **Firebase**, and **Genkit (Gemini 2.5 Flash)**. It prioritizes WhatsApp-first communication for the Indian workforce.
+
+## 2. Milestone Logs & Conversion History
+
+### Phase 1: Identity & Internationalization (Foundations)
+- **Firebase Auth**: Integrated Google, Phone (OTP), and Email authentication.
+- **Bilingual Core**: Built a custom `i18n` context system for seamless English/Hindi switching across all components.
+- **Smart Routing**: Established a dashboard system that detects user roles and routes them to `employer_dashboard` or `seeker_profile` automatically.
+
+### Phase 2: AI Matching & Quality Control
+- **Genkit Integration**: Configured AI flows for job analysis and matching.
+- **Job Moderator**: Created an AI flow to analyze job postings for realism, professionalism, and spam detection.
+- **Career Adviser**: Developed the "AI Job Adviser" which provides selection probability percentages and "Gap Analysis" tips in Hinglish.
+
+### Phase 3: WhatsApp Engine & Meta Cloud API
+- **NLU Bot**: Engineered a bilingual NLU handler to extract City and Category from conversational WhatsApp messages.
+- **Webhook Gateway**: Implemented a secure webhook to process incoming Meta events and maintain chat history in Firestore.
+- **Simulator**: Built an in-app sandbox to visualize bot-user interactions without incurring API costs.
+
+### Phase 4: Marketing & Broadcast Modularization
+- **Refactoring**: Transformed the monolithic Marketing page into a high-performance modular system:
+  - `SmartCampaignsTab`: Real-time reach calculation based on database filters.
+  - `BulkSenderTab`: Integrated Excel/CSV import/export with professional contact management.
+  - `TemplateDesignerTab`: Meta-compliant template editor with rich media support and sequential variable mapping (`{{1}}`-`{{4}}`).
+  - `BotFlowDesignerTab`: Interactive visual builder for trigger-based chat sequences.
+
+### Phase 5: Monetization & Compliance
+- **Wallet System**: Credit-based economy for premium AI usage and WhatsApp alerts.
+- **Razorpay Integration**: End-to-end payment flow with signature verification, GST calculation, and discount coupon logic.
+- **Security Rules (V30)**: Hardened Firestore rules to protect PII while allowing administrative listing of automation flows and templates.
+
+## 3. Bug Fixes & Technical Hardening
+- **Reference Errors**: Resolved multiple crashes in refactored tabs by ensuring all Lucide-React icons (Clock, Info, Sparkles) and Next.js components (Link) are imported.
+- **Radix UI Stability**: Fixed `Select.Item` value prop errors in the Template Designer.
+- **Permission Hardening**: Fixed a critical "Missing Permissions" bug on `list` operations for administrative collections by refining the `isAdmin()` rule logic.
+- **Metadata Repair**: Developed backend routes to systemically fix missing timestamps and user role flags across legacy documents.
+
+## 4. Collection Schema
+- `users`: Core profiles (Metadata, Credits, Roles).
+- `jobs`: Marketplace listings (Quality scores, Featured status).
+- `wa_templates`: Approved Meta message structures.
+- `wa_flows`: Trigger-based automated conversation trees.
+- `transactions`: Billing history (Razorpay references, GST logs).
+- `interactions`: Live WhatsApp chat history and session states.
